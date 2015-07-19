@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="base.css"/>
+    <style>
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        div.circle {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            background-color: red;
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+        }
+
+    </style>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            /*document.body.onclick = function () { // DOM level 1
+                console.log(this);
+            };*/
+
+            var init = {x: 0, y: 0};
+            var div;
+
+            document.body.addEventListener('click', function (event) {
+                console.log(this); // accessing the element on which the event is registered
+                console.log(event.currentTarget); // accessing the element on which the event is registered
+            });
+
+            document.body.addEventListener('mousedown', function (event) { // DOM LEVEL 2
+                // create a div element and position
+                div = createElement('div', 'circle', '', document.body);
+                // todo: Create a Position constructor
+                init.x = event.clientX;
+                init.y = event.clientY;
+                div.style.top = event.clientY + 'px';
+                div.style.left = event.clientX + 'px';
+
+                // register a mousemovehandler --> fx
+                event.currentTarget.addEventListener('mousemove', fx);
+            });
+
+            document.body.addEventListener('mouseup', function (event) { // DOM LEVEL 2
+                div = null;
+                init = {x: 0, y: 0};
+                // register a mousemovehandler --> fx
+                event.currentTarget.removeEventListener('mousemove', fx);
+            });
+
+            function fx(event) {
+                // mousemovehandler
+                var width = event.clientX - init.x;
+                var height = event.clientY - init.y;
+                div.style.height = height;
+                div.style.width = width;
+            }
+
+
+
+            function createElement(type, className, innerHTML, parent, attributes) {
+                var element = document.createElement(type);
+                if (className) element.className = className;
+                if (innerHTML) element.innerHTML = innerHTML;
+                if (parent) parent.appendChild(element);
+                if (attributes) {
+                    for (var prop in attributes) {
+                        element.setAttribute(prop, attributes[prop]);
+                    }
+                }
+                return element;
+            }
+        });
+
+
+
+    </script>
+</head>
+<body>
+</body>
+</html>

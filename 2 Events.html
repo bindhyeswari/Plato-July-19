@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="base.css"/>
+    <style>
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        div.circle {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            background-color: red;
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+        }
+
+    </style>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var draw = false;
+            document.body.querySelector('button').addEventListener('click', function () {
+                draw = !draw;
+                if (draw) {
+                    document.body.addEventListener('click', mouseClickHandler);
+                } else {
+                    document.body.removeEventListener('click', mouseClickHandler);
+                }
+            });
+
+            var x = function () {return 10};
+            var y = function () {return 10}; // x === y // false
+
+            function mouseClickHandler(event) {
+
+                var div = createElement('div', 'circle', '', document.body);
+                console.log(div);
+                div.style.top = event.clientY - 5 + 'px';
+                div.style.left = event.clientX - 5 + 'px';
+
+
+            }
+
+            function createElement(type, className, innerHTML, parent, attributes) {
+                var element = document.createElement(type);
+                if (className) element.className = className;
+                if (innerHTML) element.innerHTML = innerHTML;
+                if (parent) parent.appendChild(element);
+                if (attributes) {
+                    for (var prop in attributes) {
+                        element.setAttribute(prop, attributes[prop]);
+                    }
+                }
+                return element;
+            }
+        });
+
+
+
+    </script>
+</head>
+<body>
+    <button>Toggle drawing circles</button>
+</body>
+</html>
