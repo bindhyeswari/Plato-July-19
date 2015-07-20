@@ -18,13 +18,20 @@
             var div1 = document.body.firstElementChild;
             var div2 = div1.firstElementChild;
             var div3 = div2.firstElementChild;
+            div1.addEventListener('click', fy, false);
 
-            div3.addEventListener('click', fx, false);
-            div1.addEventListener('click', fx, false);
+            div1.addEventListener('click', fx, true);
+            div2.addEventListener('click', fx, true);
+            div3.addEventListener('click', fy, false);
+            div3.addEventListener('click', fx, true);
+            div2.addEventListener('click', fy, false);
 
             function fx(event) {
-                console.log('fired on .. ', event.currentTarget);
-                console.log('the original element is ... ', event.target);
+                console.log('fired on .. ', event.currentTarget, 'event phase', event.eventPhase);
+            }
+
+            function fy(event) {
+                console.log('(function fy) fired on .. ', event.currentTarget, 'event phase', event.eventPhase);
             }
         });
 
